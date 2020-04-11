@@ -5,4 +5,8 @@
     <RootNamespace>Blazor_PDF</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.6.5" />
+  </ItemGroup>
+
 </Project>
