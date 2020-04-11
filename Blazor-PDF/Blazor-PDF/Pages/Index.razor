@@ -1,4 +1,32 @@
 ﻿@page "/"
+@inject IJSRuntime js
 
-<h1>Hello, world!</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Featured</h5>
+                    <div class="card-body">
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary" @onclick="pdf1">Open File</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                2 of 2
+            </div>
+            <div class="col">
+                3 of 3
+            </div>
+        </div>
+    </div>
 
+@code
+{
+    private void pdf1()
+    {
+        var pdf = new Blazor_PDF.PDF.Report();
+        pdf.Generate(js);
+
+    }
+}
