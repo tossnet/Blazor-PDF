@@ -9,4 +9,12 @@
     <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.6.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="wwwroot\images\Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

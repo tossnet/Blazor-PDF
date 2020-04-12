@@ -59,16 +59,31 @@ namespace Blazor_PDF.PDF
 
             var phrase = new Phrase(lopsem, _fontStyle);
 
+            // Create and add a Paragraph
+            Paragraph p = new Paragraph("Paragraph On the Right", _fontStyle);
+            p.SetAlignment("RIGHT");
+            docPDF.Add(p);
 
-            //PdfContentByte cb = writer.DirectContent;
+            // Create and add an Image
+            string image = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\images\Logo.png"}";
+            Image img = Image.GetInstance(image);
+            //img.SetAbsolutePosition(
+            //        (PageSize.POSTCARD.getWidth() - img.getScaledWidth()) / 2,
+            //        (PageSize.POSTCARD.getHeight() - img.getScaledHeight()) / 2);
+            docPDF.Add(img);
+
+
+            PdfContentByte cb = writer.DirectContent;
             //cb.SetLineWidth(3f);
-            //cb.MoveTo(100, 700);
-            //cb.LineTo(200, 800);
+            //cb.MoveTo(50, 20);
+            //cb.LineTo(20, 80);
 
-            //ColumnText ct = new ColumnText( cb);
-            //ct.SetSimpleColumn((new Rectangle(0, 0, 523, 50));
-            //ct.addElement(new Paragraph("This could be a very long sentence that needs to be wrapped"));
-            //ct.go();
+            ColumnText ct = new ColumnText(cb);
+            float urx = 5;
+            float ury = 5;
+            ct.SetSimpleColumn(phrase,20,20, urx.ToDpi(), ury.ToDpi(),8, Element.ALIGN_JUSTIFIED);
+            
+            ct.Go();
 
             docPDF.Add(phrase);
         }
