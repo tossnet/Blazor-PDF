@@ -5,15 +5,21 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <h5 class="card-header">Featured</h5>
+                    <h5 class="card-header">Text & Paragraphe</h5>
                     <div class="card-body">
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary" @onclick="pdf1">Open File</a>
+                        <p class="card-text">A single page with text</p>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(1))">Create File</a>
                     </div>
                 </div>
             </div>
             <div class="col">
-                2 of 2
+                <div class="card">
+                    <h5 class="card-header">Bookmarks and Links</h5>
+                    <div class="card-body">
+                        <p class="card-text">How to create bookmarks and links in your document</p>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(2))">Create File</a>
+                    </div>
+                </div>
             </div>
             <div class="col">
                 3 of 3
@@ -23,10 +29,9 @@
 
 @code
 {
-    private void pdf1()
+    private void createFile(int pagetype)
     {
         var pdf = new Blazor_PDF.PDF.Report();
-        pdf.Generate(js);
-
+        pdf.Generate(js, pagetype);
     }
 }
