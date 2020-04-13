@@ -3,23 +3,39 @@ using iTextSharp.text.pdf;
 
 namespace Blazor_PDF.PDF
 {
-    public class PDFFooter : PdfPageEventHelper
+    public class PDFHeaderFooter : PdfPageEventHelper
     {
         // write on top of document
         public override void OnOpenDocument(PdfWriter writer, Document document)
         {
             base.OnOpenDocument(writer, document);
+
             PdfPTable header = new PdfPTable(1)
             {
-                SpacingAfter = 10F,
-                TotalWidth = PageSize.A4.Width - document.LeftMargin -document.RightMargin
+                SpacingAfter = 30F,
+                TotalWidth = PageSize.A4.Width - document.LeftMargin -document.RightMargin,
+                LockedWidth = true
             };
-            PdfPCell cell = new PdfPCell(new Phrase("Header"));
 
-            cell.BackgroundColor = BaseColor.LightGray;
+            var fontStyle = FontFactory.GetFont("Arial", 16, BaseColor.White);
+
+            var labelHeader = new Chunk("Header Blazor PDF", fontStyle);
+
+            PdfPCell cell = new PdfPCell(new Phrase(labelHeader))
+            {
+                BackgroundColor = new BaseColor(133, 76, 199),
+                Border = 0,
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP
+            };
+
             header.AddCell(cell);
 
             header.WriteSelectedRows(0, -1, document.LeftMargin, document.Top, writer.DirectContent);
+
+            //var f = FontFactory.GetFont("Arial", 16, BaseColor.Green);
+            //Paragraph p = new Paragraph("ESZRFGZSEFGZEF", f);
+            //document.Add(p);
         }
 
         // write on start of each page

@@ -34,8 +34,8 @@ namespace Blazor_PDF.PDF
 
             float margeLeft = 1.5f;
             float margeRight= 1.5f;
-            float margeTop = 2f;
-            float margeBottom = 2f;
+            float margeTop = 1.0f;
+            float margeBottom = 15.0f;
 
             _docPDF = new Document(
                             PageSize.A4,
@@ -52,10 +52,32 @@ namespace Blazor_PDF.PDF
 
             writer = PdfWriter.GetInstance(_docPDF, memoryStream);
 
-            // calling PDFFooter class to Include in document
-            writer.PageEvent = new PDFFooter();
+            //HEADER and FOOTER
+            var fontStyle = FontFactory.GetFont("Arial", 16, BaseColor.White);
+            var labelHeader = new Chunk("Header Blazor PDF", fontStyle);
+            HeaderFooter header = new HeaderFooter(new Phrase(labelHeader), false)
+            {
+                BackgroundColor = new BaseColor(133, 76, 199),
+                Alignment = Element.ALIGN_CENTER,
+                Border = Rectangle.NO_BORDER
+            };
+            //header.Border = Rectangle.NO_BORDER;
+            _docPDF.Header = header;
+
+
+            var labelFooter = new Chunk("Page", fontStyle);
+            HeaderFooter footer = new HeaderFooter(new Phrase(labelFooter), true)
+            {
+                Border = Rectangle.NO_BORDER,
+                Alignment = Element.ALIGN_RIGHT
+            };
+            _docPDF.Footer = footer;
+
+
+
 
             _docPDF.Open();
+
 
             if ( _pagenumber == 1 )
                 PageText();
@@ -77,7 +99,10 @@ namespace Blazor_PDF.PDF
             var phrase = new Phrase(_lopsem, _fontStyle);
 
             // Create and add a Paragraph
-            Paragraph p = new Paragraph("Paragraph On the Right", _fontStyle);
+            Paragraph p = new Paragraph("Paragraph On the Right", _fontStyle)
+            {
+                SpacingBefore = 20f
+            };
             p.SetAlignment("RIGHT");
             _docPDF.Add(p);
 
@@ -127,7 +152,7 @@ namespace Blazor_PDF.PDF
             Chapter chapter2 = new Chapter(new Paragraph("This is Chapter 2"),2)
             {
                 BookmarkOpen = false,
-                TriggerNewPage=false
+                TriggerNewPage = true
             };
           
             Section section3 = chapter2.AddSection("Section 2.1", 3);
