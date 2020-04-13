@@ -52,12 +52,17 @@ namespace Blazor_PDF.PDF
 
             writer = PdfWriter.GetInstance(_docPDF, memoryStream);
 
+            // calling PDFFooter class to Include in document
+            writer.PageEvent = new PDFFooter();
+
             _docPDF.Open();
 
             if ( _pagenumber == 1 )
                 PageText();
             else if ( _pagenumber == 2 )
                 PageBookmark();
+            else if ( _pagenumber == 3 )
+                PageImage();
 
             _docPDF.Close();
 
@@ -76,19 +81,7 @@ namespace Blazor_PDF.PDF
             p.SetAlignment("RIGHT");
             _docPDF.Add(p);
 
-            // Create and add an Image
-            string image = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\images\Logo.png"}";
-            Image img = Image.GetInstance(image);
-            img.SetAbsolutePosition(
-                    (PageSize.A4.Width - img.ScaledWidth) / 2,
-                    (PageSize.A4.Height - img.ScaledHeight) / 2);
-            _docPDF.Add(img);
-
-
             PdfContentByte cb = writer.DirectContent;
-            //cb.SetLineWidth(3f);
-            //cb.MoveTo(50, 20);
-            //cb.LineTo(20, 80);
 
             ColumnText ct = new ColumnText(cb);
             float urx = 5;
@@ -99,6 +92,7 @@ namespace Blazor_PDF.PDF
 
             _docPDF.Add(phrase);
         }
+
 
         private void PageBookmark()
         {
@@ -111,12 +105,24 @@ namespace Blazor_PDF.PDF
             };
 
             Section section1 = chapter1.AddSection(indentation, "Section 1.1", 2);
+
+            _docPDF.Add(chapter1);
+
+            var phrase = new Phrase(_lopsem);
+
+            _docPDF.Add(phrase);
+
             Section section2 = chapter1.AddSection(indentation, "Section 1.2", 2);
+            {
+                Section subsection1 = section2.AddSection(indentation, "Subsection 1.2.1", 3);
+                Section subsection2 = section2.AddSection(20f, "Subsection 1.2.2", 3);
+                {
+                    Section subsubsection = subsection2.AddSection(indentation, "Sub Subsection 1.2.2.1", 4);
+                }
+            }
 
-            Section subsection1 = section2.AddSection(indentation, "Subsection 1.2.1", 3);
-            Section subsection2 = section2.AddSection(20f, "Subsection 1.2.2", 3);
+            _docPDF.Add(section2);
 
-            Section subsubsection = subsection2.AddSection(indentation, "Sub Subsection 1.2.2.1", 4);
 
             Chapter chapter2 = new Chapter(new Paragraph("This is Chapter 2"),2)
             {
@@ -130,10 +136,31 @@ namespace Blazor_PDF.PDF
 
             Section section4 = chapter2.AddSection("Section 2.2", 3);
 
-            _docPDF.Add(chapter1);
 
             _docPDF.Add(chapter2);
         }
+
+
+
+        private void PageImage()
+        {
+            
+            string image = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\images\Logo.png"}";
+            Image img = Image.GetInstance(image);
+
+            img.SetAbsolutePosition(
+                    (PageSize.A4.Width - img.ScaledWidth) / 2,
+                    (PageSize.A4.Height - img.ScaledHeight) / 2);
+
+            _docPDF.Add(img);
+
+
+            //PdfContentByte cb = writer.DirectContent;
+            //cb.SetLineWidth(3f);
+            //cb.MoveTo(50, 20);
+            //cb.LineTo(20, 80);
+        }
+
 
     }
 }
