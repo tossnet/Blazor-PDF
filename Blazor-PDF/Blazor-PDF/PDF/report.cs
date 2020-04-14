@@ -123,7 +123,7 @@ namespace Blazor_PDF.PDF
         {
             float indentation = 20;
 
-            Chapter chapter1 = new Chapter(new Paragraph("Text and Paragraphe"), 1)
+            Chapter chapter1 = new Chapter(new Paragraph("Bookmarks and Links"), 1)
             {
                 BookmarkTitle = "Text & co",
                 BookmarkOpen = true
@@ -133,12 +133,38 @@ namespace Blazor_PDF.PDF
 
             _docPDF.Add(chapter1);
 
-            var phrase = new Phrase(_lopsem);
+            // Add Paragraph
+            Font _fontStyle = FontFactory.GetFont("Tahoma", 8f, Font.ITALIC);
+            var paragraph = new Paragraph(_lopsem, _fontStyle)
+            {
+                SpacingBefore = 10f,
+                SpacingAfter = 10f,
+                IndentationLeft= indentation,
+                Alignment=Element.ALIGN_JUSTIFIED
+            };
+            _docPDF.Add(paragraph);
 
-            _docPDF.Add(phrase);
+
+            // Add simple Link
+            Font _linkStyle = FontFactory.GetFont("Tahoma", 8f, Font.UNDERLINE, BaseColor.Blue);
+            Anchor link = new Anchor("www.sodeasoft.com", _linkStyle)
+            {
+                Reference = "https://www.sodeasoft.com"
+            };
+            _docPDF.Add(link);
+
+
+            // Add paragraph and add at the end the link
+            paragraph.Add(link);
+
+            //_docPDF.Add(paragraph);
+
+
 
             Section section2 = chapter1.AddSection(indentation, "Section 1.2", 2);
             {
+                section2.TriggerNewPage = false;
+
                 Section subsection1 = section2.AddSection(indentation, "Subsection 1.2.1", 3);
                 Section subsection2 = section2.AddSection(20f, "Subsection 1.2.2", 3);
                 {
