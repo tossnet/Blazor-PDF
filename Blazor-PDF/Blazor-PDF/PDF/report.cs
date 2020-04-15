@@ -157,8 +157,8 @@ namespace Blazor_PDF.PDF
             // Add paragraph and add at the end the link
             paragraph.Add(link);
 
-            //_docPDF.Add(paragraph);
 
+            //_docPDF.Add(paragraph);
 
 
             Section section2 = chapter1.AddSection(indentation, "Section 1.2", 2);
