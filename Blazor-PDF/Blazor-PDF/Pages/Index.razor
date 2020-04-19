@@ -8,7 +8,7 @@
                     <h5 class="card-header">Text & Paragraphe</h5>
                     <div class="card-body">
                         <p class="card-text">A single page with text</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(1))">Create File</a>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(1, "text.pdf"))">Create File</a>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <h5 class="card-header">Bookmarks and Links</h5>
                     <div class="card-body">
                         <p class="card-text">How to create bookmarks and links in your document</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(2))">Create File</a>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(2, "bookmarks.pdf"))">Create File</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <h5 class="card-header">Image</h5>
                     <div class="card-body">
                         <p class="card-text">How add image</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(3))">Create File</a>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(3, "images.pdf"))">Create File</a>
                     </div>
                 </div>
             </div>
@@ -35,9 +35,9 @@
 
 @code
 {
-    private void createFile(int pagetype)
+    private void createFile(int pagetype, string filename)
     {
         var pdf = new Blazor_PDF.PDF.Report();
-        pdf.Generate(js, pagetype);
+        pdf.Generate(js, pagetype, filename);
     }
 }

@@ -18,12 +18,12 @@ namespace Blazor_PDF.PDF
         private int _pagenumber;
         private readonly string _lopsem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum felis ut turpis viverra, a ultrices nisi tempor. Aliquam suscipit dui sit amet facilisis aliquam. In scelerisque sem ut elit molestie tempor. In finibus sagittis nulla, vitae vestibulum ante tristique sit amet. Phasellus facilisis rhoncus nunc id scelerisque. Praesent cursus erat nec turpis interdum condimentum. Aenean ut facilisis eros. Nam semper tincidunt libero in porttitor. Praesent nec dui vitae leo vulputate varius ut non risus. Quisque imperdiet euismod ipsum facilisis finibus. Duis ac felis eget leo malesuada gravida id at felis. Cras posuere, tortor sit amet bibendum tincidunt, augue lectus pulvinar nisl, ac blandit velit arcu sed nulla. Mauris id venenatis turpis, ut fringilla nunc. Aenean commodo fermentum nulla, non porta sapien viverra sed. Sed sed risus interdum, maximus sapien ac, bibendum diam.";
 
-        public void Generate(IJSRuntime js, int pagenumber)
+        public void Generate(IJSRuntime js, int pagenumber, string filename = "report.pdf")
         {
             _pagenumber = pagenumber;
             js.InvokeVoidAsync(
                 "saveAsFile",
-                "report.pdf",
+                filename,
                 Convert.ToBase64String(ReportPDF())
                 );
         }
@@ -32,17 +32,19 @@ namespace Blazor_PDF.PDF
         {
             var memoryStream = new MemoryStream();
 
+            // Marge in centimeter, then I convert with .ToDpi()
             float margeLeft = 1.5f;
             float margeRight= 1.5f;
             float margeTop = 1.0f;
             float margeBottom = 15.0f;
 
             _docPDF = new Document(
-                            PageSize.A4,
-                            margeLeft.ToDpi(),
-                            margeRight.ToDpi(),
-                            margeTop.ToDpi(),
-                            margeBottom.ToDpi());
+                                    PageSize.A4,
+                                    margeLeft.ToDpi(),
+                                    margeRight.ToDpi(),
+                                    margeTop.ToDpi(),
+                                    margeBottom.ToDpi()
+                                   );
 
             _docPDF.AddTitle("Blazor-PDF");
             _docPDF.AddAuthor( "Christophe Peugnet");
@@ -72,9 +74,6 @@ namespace Blazor_PDF.PDF
                 Alignment = Element.ALIGN_RIGHT
             };
             _docPDF.Footer = footer;
-
-
-
 
             _docPDF.Open();
 
@@ -122,19 +121,34 @@ namespace Blazor_PDF.PDF
         private void PageBookmark()
         {
             float indentation = 20;
+            Font _fontStyle = FontFactory.GetFont("Tahoma", 8f, Font.ITALIC);
+            Font _linkStyle = FontFactory.GetFont("Tahoma", 8f, Font.UNDERLINE, BaseColor.Blue);
 
             Chapter chapter1 = new Chapter(new Paragraph("Bookmarks and Links"), 1)
             {
                 BookmarkTitle = "Text & co",
                 BookmarkOpen = true
             };
-
-            Section section1 = chapter1.AddSection(indentation, "Section 1.1", 2);
+            chapter1.AddSection(indentation, "Section 1.1", 2);
 
             _docPDF.Add(chapter1);
 
+
+            // Add a link to anchor
+            var click = new Anchor("Click to an anchor-target in this document", _linkStyle)
+            {
+                Reference = "#target"
+            };
+            var paragraph1 = new Paragraph
+            {
+                IndentationLeft = indentation
+            };
+            paragraph1.Add(click);
+
+            _docPDF.Add(paragraph1);
+
+
             // Add Paragraph
-            Font _fontStyle = FontFactory.GetFont("Tahoma", 8f, Font.ITALIC);
             var paragraph = new Paragraph(_lopsem, _fontStyle)
             {
                 SpacingBefore = 10f,
@@ -142,24 +156,26 @@ namespace Blazor_PDF.PDF
                 IndentationLeft= indentation,
                 Alignment=Element.ALIGN_JUSTIFIED
             };
+
             _docPDF.Add(paragraph);
 
 
             // Add simple Link
-            Font _linkStyle = FontFactory.GetFont("Tahoma", 8f, Font.UNDERLINE, BaseColor.Blue);
             Anchor link = new Anchor("www.sodeasoft.com", _linkStyle)
             {
                 Reference = "https://www.sodeasoft.com"
             };
-            _docPDF.Add(link);
+            var paragraph3 = new Paragraph("Web link : ", _fontStyle)
+            {
+                IndentationLeft = indentation
+            };
+            paragraph3.Add(link);
+
+            _docPDF.Add(paragraph3);
 
 
-            // Add paragraph and add at the end the link
-            paragraph.Add(link);
-
-
-            //_docPDF.Add(paragraph);
-
+            // To add paragraph and add at the end the link:
+            // paragraph.Add(link);
 
             Section section2 = chapter1.AddSection(indentation, "Section 1.2", 2);
             {
@@ -189,7 +205,17 @@ namespace Blazor_PDF.PDF
 
 
             _docPDF.Add(chapter2);
+
+            // Add the target from the Anchor above
+            Anchor target = new Anchor("This is the Target");
+            target.Name = "target";
+            Paragraph paragraph2 = new Paragraph
+            {
+                target
+            };
+            _docPDF.Add(paragraph2);
         }
+
 
 
 
