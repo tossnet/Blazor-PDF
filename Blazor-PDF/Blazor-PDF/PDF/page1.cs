@@ -8,7 +8,7 @@ namespace Blazor_PDF.PDF
     {
         private readonly static string _lopsem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dictum felis ut turpis viverra, a ultrices nisi tempor. Aliquam suscipit dui sit amet facilisis aliquam. In scelerisque sem ut elit molestie tempor. In finibus sagittis nulla, vitae vestibulum ante tristique sit amet. Phasellus facilisis rhoncus nunc id scelerisque. Praesent cursus erat nec turpis interdum condimentum. Aenean ut facilisis eros. Nam semper tincidunt libero in porttitor. Praesent nec dui vitae leo vulputate varius ut non risus. Quisque imperdiet euismod ipsum facilisis finibus. Duis ac felis eget leo malesuada gravida id at felis. Cras posuere, tortor sit amet bibendum tincidunt, augue lectus pulvinar nisl, ac blandit velit arcu sed nulla. Mauris id venenatis turpis, ut fringilla nunc. Aenean commodo fermentum nulla, non porta sapien viverra sed. Sed sed risus interdum, maximus sapien ac, bibendum diam.";
 
-        public static void PageText(Document pdf, PdfWriter writer)
+        public static void PageText(Document pdf)
         {
             var title = new Paragraph("Text and Paragraphe", new Font(Font.HELVETICA, 20, Font.BOLD));
             title.SpacingAfter = 18f;
@@ -21,13 +21,12 @@ namespace Blazor_PDF.PDF
             pdf.Add(phrase);
 
             // Create and add a Paragraph
-            var p = new Paragraph("Paragraph On the Right", _fontStyle)
-            {
-                SpacingBefore = 20f
-            };
+            var p = new Paragraph("Paragraph On the Right", _fontStyle);
+            p.SpacingBefore = 20f;
             p.SetAlignment("RIGHT");
 
             pdf.Add(p);
+
 
             float margeborder = 1.5f;
             float widhtColumn = 8.5f;

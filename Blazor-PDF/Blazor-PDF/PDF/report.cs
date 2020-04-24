@@ -73,11 +73,13 @@ namespace Blazor_PDF.PDF
 
 
             if ( _pagenumber == 1 )
-                Page1.PageText(pdf, writer);
+                Page1.PageText(pdf);
             else if ( _pagenumber == 2 )
                 Page2.PageBookmark(pdf);
             else if ( _pagenumber == 3 )
                 Page3.PageImage(pdf, writer);
+            else if (_pagenumber == 4)
+                Page4.PageFonts(pdf, writer);
 
             pdf.Close();
 

@@ -29,10 +29,8 @@ namespace Blazor_PDF.PDF
             {
                 Reference = "#target"
             };
-            var paragraph1 = new Paragraph
-            {
-                IndentationLeft = indentation
-            };
+            var paragraph1 = new Paragraph();
+            paragraph1.IndentationLeft = indentation;
             paragraph1.Add(click);
 
             pdf.Add(paragraph1);
