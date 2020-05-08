@@ -30,7 +30,7 @@ namespace Blazor_PDF.PDF
             float margeLeft = 1.5f;
             float margeRight= 1.5f;
             float margeTop = 1.0f;
-            float margeBottom = 15.0f;
+            float margeBottom = 1.0f;
 
             Document pdf = new Document(
                                     PageSize.A4,

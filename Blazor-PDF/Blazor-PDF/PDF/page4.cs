@@ -35,34 +35,73 @@ namespace Blazor_PDF.PDF
 
             BaseFont bfCourier= BaseFont.CreateFont(BaseFont.COURIER, encoding: BaseFont.CP1252, embedded: false);
             Examples(pdf, bfCourier);
+
+
+            title = new Paragraph("Helvetica")
+            {
+                SpacingBefore = 18f,
+                SpacingAfter = 9f
+            };
+            pdf.Add(title);
+
+            BaseFont bfHelvetica = BaseFont.CreateFont(BaseFont.HELVETICA, encoding: BaseFont.CP1252, embedded: false);
+            Examples(pdf, bfHelvetica);
+
+
+            title = new Paragraph("Symbol")
+            {
+                SpacingBefore = 18f,
+                SpacingAfter = 9f
+            };
+            pdf.Add(title);
+
+            BaseFont bSymbol = BaseFont.CreateFont(BaseFont.SYMBOL, encoding: BaseFont.CP1252, embedded: false);
+            Examples(pdf, bSymbol);
+
+
+            title = new Paragraph("ZapfDingBats®")
+            {
+                SpacingBefore = 18f,
+                SpacingAfter = 9f
+            };
+            pdf.Add(title);
+
+            BaseFont bZapfDingBats = BaseFont.CreateFont(BaseFont.ZAPFDINGBATS, encoding: BaseFont.CP1252, embedded: false);
+            Examples(pdf, bZapfDingBats);
         }
 
 
         private static void Examples(Document pdf, BaseFont basefont)
         {
             string text = "0123456789 ABDCEFGHIJKLMNOPQRSTXYWZ abcdefghijklmnopqrstuvwxyz @&*$€";
+            float fontSize = 12;
 
-            Font font = new Font(basefont, 12, Font.NORMAL, BaseColor.Black);
+            Font font = new Font(basefont, fontSize, Font.NORMAL, BaseColor.Black);
             var paragraph = new Paragraph(text, font);
             pdf.Add(paragraph);
 
-            font = new Font(basefont, 12, Font.BOLD, BaseColor.Black);
+
+            if (basefont.PostscriptFontName == BaseFont.SYMBOL) return;
+            if (basefont.PostscriptFontName == BaseFont.ZAPFDINGBATS) return;
+
+
+            font = new Font(basefont, fontSize, Font.BOLD, BaseColor.Black);
             paragraph = new Paragraph(text, font);
             pdf.Add(paragraph);
 
-            font = new Font(basefont, 12, Font.ITALIC, BaseColor.Black);
+            font = new Font(basefont, fontSize, Font.ITALIC, BaseColor.Black);
             paragraph = new Paragraph(text, font);
             pdf.Add(paragraph);
 
-            font = new Font(basefont, 12, Font.UNDERLINE, BaseColor.Black);
+            font = new Font(basefont, fontSize, Font.UNDERLINE, BaseColor.Black);
             paragraph = new Paragraph(text, font);
             pdf.Add(paragraph);
 
-            font = new Font(basefont, 12, Font.BOLD + Font.ITALIC, BaseColor.Black);
+            font = new Font(basefont, fontSize, Font.BOLD + Font.ITALIC, BaseColor.Black);
             paragraph = new Paragraph(text, font);
             pdf.Add(paragraph);
 
-            font = new Font(basefont, 12, Font.STRIKETHRU, BaseColor.Black);
+            font = new Font(basefont, fontSize, Font.STRIKETHRU, BaseColor.Black);
             paragraph = new Paragraph(text, font);
             pdf.Add(paragraph);
         }
