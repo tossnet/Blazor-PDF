@@ -79,7 +79,9 @@ namespace Blazor_PDF.PDF
             else if ( _pagenumber == 3 )
                 Page3.PageImage(pdf, writer);
             else if (_pagenumber == 4)
-                Page4.PageFonts(pdf, writer);
+                Page4.PageTable(pdf, writer);
+            else if (_pagenumber == 5)
+                Page5.PageFonts(pdf, writer);
 
             pdf.Close();
 
