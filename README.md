@@ -10,4 +10,5 @@ iTextSharp.LGPLv2.Core is an unofficial port of the last LGPL version of the iTe
  - [text.pdf](https://github.com/tossnet/Blazor-PDF/blob/master/Blazor-PDF/Output/text.pdf)
  - [bookmarks.pdf](https://github.com/tossnet/Blazor-PDF/blob/master/Blazor-PDF/Output/bookmarks.pdf)
  - [images.pdf](https://github.com/tossnet/Blazor-PDF/blob/master/Blazor-PDF/Output/images.pdf)
+ - [tables.pdf](https://github.com/tossnet/Blazor-PDF/blob/master/Blazor-PDF/Output/tables.pdf)
  - [fonts.pdf](https://github.com/tossnet/Blazor-PDF/blob/master/Blazor-PDF/Output/fonts.pdf)
