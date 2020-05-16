@@ -8,7 +8,9 @@
                     <h5 class="card-header">Text & Paragraphe</h5>
                     <div class="card-body">
                         <p class="card-text">A single page with text</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(1, "text.pdf"))">Create File</a>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(1, "text.pdf"))">Download</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(1, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(1, "text.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -18,6 +20,8 @@
                     <div class="card-body">
                         <p class="card-text">How to create bookmarks and links in your document</p>
                         <a href="#" class="btn btn-primary" @onclick="@(p => createFile(2, "bookmarks.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(2, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(2, "bookmarks.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -27,12 +31,14 @@
                     <div class="card-body">
                         <p class="card-text">How add image</p>
                         <a href="#" class="btn btn-primary" @onclick="@(p => createFile(3, "images.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(3, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(3, "images.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <br/>
+        <br />
 
         <div class="row">
             <div class="col ">
@@ -41,6 +47,8 @@
                     <div class="card-body">
                         <p class="card-text">Create your table, columns, rows, Cells...</p>
                         <a href="#" class="btn btn-primary" @onclick="@(p => createFile(4, "tables.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(4, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(4, "tables.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -50,12 +58,16 @@
                     <div class="card-body">
                         <p class="card-text">iTextSharp include the support of 5 type of fonts with variant styles</p>
                         <a href="#" class="btn btn-primary" @onclick="@(p => createFile(5, "fonts.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(5, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(5, "fonts.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
             <div class="col">
             </div>
         </div>
+
+        <div id="pdfFrame"></div>
     </div>
 
 @code
@@ -64,5 +76,17 @@
     {
         var pdf = new Blazor_PDF.PDF.Report();
         pdf.Generate(js, pagetype, filename);
+    }
+
+    private void OpenToIframe(int pagetype, string idiFrame)
+    {
+        var pdf = new Blazor_PDF.PDF.Report();
+        pdf.OpenToIframe(js, pagetype, idiFrame);
+    }
+
+    private void OpenIntoNewTab(int pagetype, string filename)
+    {
+        var pdf = new Blazor_PDF.PDF.Report();
+        pdf.OpenIntoNewTab(js, pagetype, filename);
     }
 }

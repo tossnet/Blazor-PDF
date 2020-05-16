@@ -2,6 +2,7 @@
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 
 namespace Blazor_PDF.PDF
@@ -21,6 +22,28 @@ namespace Blazor_PDF.PDF
                                 Convert.ToBase64String(ReportPDF())
                                 );
         }
+
+        public void OpenToIframe(IJSRuntime js, int pagenumber, string idiFrame)
+        {
+            _pagenumber = pagenumber;
+
+            js.InvokeVoidAsync(
+                                "OpenToIframe",
+                                idiFrame,
+                                Convert.ToBase64String(ReportPDF())
+                                );
+        }
+        public void OpenIntoNewTab(IJSRuntime js, int pagenumber, string filename = "report.pdf")
+        {
+            _pagenumber = pagenumber;
+
+            js.InvokeVoidAsync(
+                                "OpenIntoNewTab",
+                                filename,
+                                Convert.ToBase64String(ReportPDF())
+                                );
+        }
+
 
         private byte[] ReportPDF()
         {
