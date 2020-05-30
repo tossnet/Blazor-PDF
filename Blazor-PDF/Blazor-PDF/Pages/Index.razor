@@ -63,7 +63,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col ">
+                <div class="card h-100">
+                    <h5 class="card-header">List</h5>
+                    <div class="card-body">
+                        <p class="card-text">Create a list</p>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(5, "list.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(6, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(6, "list.pdf"))">NewTab</button>
+                    </div>
+                </div>
             </div>
         </div>
 

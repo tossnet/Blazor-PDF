@@ -105,6 +105,8 @@ namespace Blazor_PDF.PDF
                 Page4.PageTable(pdf, writer);
             else if (_pagenumber == 5)
                 Page5.PageFonts(pdf, writer);
+            else if (_pagenumber == 6)
+                Page6.PageList(pdf);
 
             pdf.Close();
 
