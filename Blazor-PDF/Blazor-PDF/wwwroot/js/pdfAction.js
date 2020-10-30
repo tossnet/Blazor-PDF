@@ -20,8 +20,36 @@ function OpenToIframe(iFrameId, byteBase64) {
 }
 
 function OpenIntoNewTab(filename, byteBase64) {
-    let pdfWindow = window.open("")
-    pdfWindow.document.write(
-        "<iframe width='100%' height='100%' src='data:application/pdf;base64, " + byteBase64 + "'></iframe>"
-    )
+    var blob = b64toBlob(byteBase64);
+
+    var blobURL = URL.createObjectURL(blob);
+    window.open(blobURL);
+
+    //let pdfWindow = window.open("")
+    //pdfWindow.document.write(
+    //    "<iframe width='100%' height='100%' src='data:application/pdf;base64, " + byteBase64 + "'></iframe>"
+    //)
+}
+
+function b64toBlob(b64Data) {
+    sliceSize =  512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: 'application/pdf' });
+    return blob;
 }
