@@ -8,9 +8,9 @@
                     <h5 class="card-header">Text & Paragraphe</h5>
                     <div class="card-body">
                         <p class="card-text">A single page with text</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(1, "text.pdf"))">Download</a>
-                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(1, "pdfFrame"))">View</button>
-                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(1, "text.pdf"))">NewTab</button>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(1, "text.pdf"))">Download</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(1, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(1, "text.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -19,9 +19,9 @@
                     <h5 class="card-header">Bookmarks and Links</h5>
                     <div class="card-body">
                         <p class="card-text">How to create bookmarks and links in your document</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(2, "bookmarks.pdf"))">Create File</a>
-                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(2, "pdfFrame"))">View</button>
-                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(2, "bookmarks.pdf"))">NewTab</button>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(2, "bookmarks.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(2, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(2, "bookmarks.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -30,9 +30,9 @@
                     <h5 class="card-header">Image</h5>
                     <div class="card-body">
                         <p class="card-text">How add image</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(3, "images.pdf"))">Create File</a>
-                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(3, "pdfFrame"))">View</button>
-                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(3, "images.pdf"))">NewTab</button>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(3, "images.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(3, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(3, "images.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -46,9 +46,9 @@
                     <h5 class="card-header">Tables</h5>
                     <div class="card-body">
                         <p class="card-text">Create your table, columns, rows, Cells...</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(4, "tables.pdf"))">Create File</a>
-                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(4, "pdfFrame"))">View</button>
-                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(4, "tables.pdf"))">NewTab</button>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(4, "tables.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(4, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(4, "tables.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -57,9 +57,9 @@
                     <h5 class="card-header">Fonts</h5>
                     <div class="card-body">
                         <p class="card-text">iTextSharp include the support of 5 type of fonts with variant styles</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(5, "fonts.pdf"))">Create File</a>
-                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(5, "pdfFrame"))">View</button>
-                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(5, "fonts.pdf"))">NewTab</button>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(5, "fonts.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(5, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(5, "fonts.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
@@ -68,34 +68,54 @@
                     <h5 class="card-header">List</h5>
                     <div class="card-body">
                         <p class="card-text">Create a list</p>
-                        <a href="#" class="btn btn-primary" @onclick="@(p => createFile(5, "list.pdf"))">Create File</a>
-                        <button type="button" class="btn btn-success" @onclick="@(p => OpenToIframe(6, "pdfFrame"))">View</button>
-                        <button type="button" class="btn btn-warning" @onclick="@(p => OpenIntoNewTab(6, "list.pdf"))">NewTab</button>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(5, "list.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(6, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(6, "list.pdf"))">NewTab</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="pdfFrame"></div>
+
+        <div class="row">
+            <div class="col ">
+                <div class="card h-100">
+                    <h5 class="card-header">Shapes</h5>
+                    <div class="card-body">
+                        <p class="card-text">Draw shapes and lines...</p>
+                        <a href="#" class="btn btn-primary" @onclick="@(p => ClickCreateFile(7, "shapes.pdf"))">Create File</a>
+                        <button type="button" class="btn btn-success" @onclick="@(p => ClickOpenToIframe(7, "pdfFrame"))">View</button>
+                        <button type="button" class="btn btn-warning" @onclick="@(p => ClickOpenNewTab(7, "shapes.pdf"))">NewTab</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col ">
+                <div class="card h-100">
+                    <div id="pdfFrame"></div>
+                </div>
+            </div>
+        </div>
+
+        
     </div>
 
 @code
 {
-    private void createFile(int pagetype, string filename)
+    private void ClickCreateFile(int pagetype, string filename)
     {
         var pdf = new Blazor_PDF.PDF.Report();
         pdf.Generate(js, pagetype, filename);
     }
 
-    private void OpenToIframe(int pagetype, string idiFrame)
+    private void ClickOpenToIframe(int pagetype, string idiFrame)
     {
         var pdf = new Blazor_PDF.PDF.Report();
         pdf.OpenToIframe(js, pagetype, idiFrame);
     }
 
-    private void OpenIntoNewTab(int pagetype, string filename)
+    private void ClickOpenNewTab(int pagetype, string filename)
     {
         var pdf = new Blazor_PDF.PDF.Report();
-        pdf.OpenIntoNewTab(js, pagetype, filename);
+        pdf.OpenNewTab(js, pagetype, filename);
     }
 }

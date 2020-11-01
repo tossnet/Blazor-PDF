@@ -2,7 +2,6 @@
 using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 
 namespace Blazor_PDF.PDF
@@ -16,8 +15,7 @@ namespace Blazor_PDF.PDF
         {
             _pagenumber = pagenumber;
 
-            js.InvokeVoidAsync(
-                                "saveAsFile",
+            js.InvokeVoidAsync( "jsSaveAsFile",
                                 filename,
                                 Convert.ToBase64String(ReportPDF())
                                 );
@@ -27,18 +25,16 @@ namespace Blazor_PDF.PDF
         {
             _pagenumber = pagenumber;
 
-            js.InvokeVoidAsync(
-                                "OpenToIframe",
+            js.InvokeVoidAsync( "jsOpenToIframe",
                                 idiFrame,
                                 Convert.ToBase64String(ReportPDF())
                                 );
         }
-        public void OpenIntoNewTab(IJSRuntime js, int pagenumber, string filename = "report.pdf")
+        public void OpenNewTab(IJSRuntime js, int pagenumber, string filename = "report.pdf")
         {
             _pagenumber = pagenumber;
 
-            js.InvokeVoidAsync(
-                                "OpenIntoNewTab",
+            js.InvokeVoidAsync( "jsOpenIntoNewTab",
                                 filename,
                                 Convert.ToBase64String(ReportPDF())
                                 );
@@ -107,6 +103,8 @@ namespace Blazor_PDF.PDF
                 Page5.PageFonts(pdf, writer);
             else if (_pagenumber == 6)
                 Page6.PageList(pdf);
+            else if (_pagenumber == 7)
+                page7.PageShapes(pdf, writer);
 
             pdf.Close();
 

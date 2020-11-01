@@ -1,4 +1,4 @@
-﻿function saveAsFile(filename, byteBase64) {
+﻿function jsSaveAsFile(filename, byteBase64) {
     var link = document.createElement('a');
     link.download = filename;
     link.href = "data:application/octet-stream;base64," + byteBase64;
@@ -8,7 +8,7 @@
 }
 
 
-function OpenToIframe(iFrameId, byteBase64) {
+function jsOpenToIframe(iFrameId, byteBase64) {
     //Clear content
     document.getElementById(iFrameId).innerHTML = "";
 
@@ -19,7 +19,7 @@ function OpenToIframe(iFrameId, byteBase64) {
     document.getElementById(iFrameId).appendChild(ifrm);
 }
 
-function OpenIntoNewTab(filename, byteBase64) {
+function jsOpenIntoNewTab(filename, byteBase64) {
     var blob = b64toBlob(byteBase64);
 
     var blobURL = URL.createObjectURL(blob);
