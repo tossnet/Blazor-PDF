@@ -1,15 +1,21 @@
-﻿function jsSaveAsFile(filename, byteBase64) {
-    var link = document.createElement('a');
-    link.download = filename;
-    link.href = "data:application/octet-stream;base64," + byteBase64;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+﻿function jsDownloadFile(filename, content) {
+    const file = new File([content], filename, { type: "application/octet-stream" });
+    const exportUrl = URL.createObjectURL(file);
+
+    // Create the <a> element and click on it
+    const a = document.createElement("a");
+    document.body.appendChild(a);
+    a.href = exportUrl;
+    a.download = filename;
+    a.target = "_self";
+    a.click();
+
+    // We don't need to keep the object url, let's release the memory
+    URL.revokeObjectURL(exportUrl);
 }
 
 
 function jsOpenToIframe(iFrameId, byteBase64) {
-    //Clear content
     document.getElementById(iFrameId).innerHTML = "";
 
     var ifrm = document.createElement('iframe');
@@ -23,12 +29,8 @@ function jsOpenIntoNewTab(filename, byteBase64) {
     var blob = b64toBlob(byteBase64);
 
     var blobURL = URL.createObjectURL(blob);
-    window.open(blobURL);
 
-    //let pdfWindow = window.open("")
-    //pdfWindow.document.write(
-    //    "<iframe width='100%' height='100%' src='data:application/pdf;base64, " + byteBase64 + "'></iframe>"
-    //)
+    window.open(blobURL);
 }
 
 function b64toBlob(b64Data) {
